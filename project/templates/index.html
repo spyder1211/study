@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>現在時刻表示アプリ</title>
+    <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>現在の時刻</h1>
+        <!-- サーバーから渡された現在時刻を表示 -->
+        <div class="time-display">{{ current_time }}</div>
+        <p class="description">このアプリはPython+Flaskで構築されています</p>
+    </div>
+</body>
+</html>
