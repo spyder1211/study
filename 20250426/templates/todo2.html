@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>時間指定TODOアプリ</title>
+    <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .time-todo-input {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+        
+        .time-input {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        #new-todo {
+            flex: 1;
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+        }
+        
+        .task-time {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-right: 10px;
+        }
+        
+        .task-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .time-sort-controls {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        
+        .sort-btn {
+            background-color: #95a5a6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            margin-left: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .sort-btn:hover {
+            background-color: #7f8c8d;
+        }
+        
+        .sort-btn.active {
+            background-color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>時間指定TODOアプリ</h1>
+        
+        <div class="todo-app">
+            <div class="time-todo-input">
+                <input type="time" id="task-time" class="time-input" required>
+                <input type="text" id="new-todo" placeholder="新しいタスクを入力...">
+                <button id="add-button">追加</button>
+            </div>
+            
+            <div class="time-sort-controls">
+                <button id="sort-time" class="sort-btn active">時間順</button>
+                <button id="sort-added" class="sort-btn">追加順</button>
+            </div>
+            
+            <ul id="todo-list"></ul>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/" class="nav-link">通常TODOアプリ</a>
+            <a href="/time" class="nav-link">現在時刻を表示</a>
+        </div>
+        
+        <p class="description">このアプリはPython+FlaskとLocalStorageで構築されています</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM要素の取得
+            const taskTimeInput = document.getElementById('task-time');
+            const newTodoInput = document.getElementById('new-todo');
+            const addButton = document.getElementById('add-button');
+            const todoList = document.getElementById('todo-list');
+            const sortTimeBtn = document.getElementById('sort-time');
+            const sortAddedBtn = document.getElementById('sort-added');
+            
+            // 現在時刻をデフォルト値に設定
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            taskTimeInput.value = `${hours}:${minutes}`;
+            
+            // LocalStorageからTODOリストを読み込む
+            let todos = JSON.parse(localStorage.getItem('time-todos')) || [];
+            let sortByTime = true; // デフォルトは時間順
+            
+            // TODOリストをソート
+            function sortTodos() {
+                if (sortByTime) {
+                    // 時間でソート
+                    todos.sort((a, b) => {
+                        return a.time.localeCompare(b.time);
+                    });
+                } else {
+                    // 追加順でソート（IDの昇順）
+                    todos.sort((a, b) => {
+                        return a.id - b.id;
+                    });
+                }
+            }
+            
+            // TODOリストの表示を更新
+            function renderTodos() {
+                // リストをクリア
+                todoList.innerHTML = '';
+                
+                // ソート適用
+                sortTodos();
+                
+                // 各TODOアイテムを表示
+                todos.forEach((todo, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <div class="task-content">
+                            <span class="task-time">${todo.time}</span>
+                            <span class="${todo.completed ? 'completed' : ''}">${todo.text}</span>
+                        </div>
+                        <div class="actions">
+                            <button class="toggle-btn" data-index="${index}">
+                                ${todo.completed ? '未完了' : '完了'}
+                            </button>
+                            <button class="delete-btn" data-index="${index}">削除</button>
+                        </div>
+                    `;
+                    todoList.appendChild(li);
+                });
+                
+                // LocalStorageに保存
+                localStorage.setItem('time-todos', JSON.stringify(todos));
+            }
+            
+            // 新しいTODOを追加
+            function addTodo() {
+                const time = taskTimeInput.value;
+                const text = newTodoInput.value.trim();
+                
+                if (time && text) {
+                    // 新しいIDを生成（既存の最大ID + 1、または初めての場合は1）
+                    const newId = todos.length > 0 
+                        ? Math.max(...todos.map(todo => todo.id)) + 1 
+                        : 1;
+                    
+                    todos.push({ 
+                        id: newId,
+                        time: time, 
+                        text: text, 
+                        completed: false 
+                    });
+                    
+                    newTodoInput.value = '';
+                    renderTodos();
+                }
+            }
+            
+            // イベントリスナーの設定
+            addButton.addEventListener('click', addTodo);
+            
+            newTodoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addTodo();
+                }
+            });
+            
+            // ソートボタンのイベント処理
+            sortTimeBtn.addEventListener('click', function() {
+                sortByTime = true;
+                sortTimeBtn.classList.add('active');
+                sortAddedBtn.classList.remove('active');
+                renderTodos();
+            });
+            
+            sortAddedBtn.addEventListener('click', function() {
+                sortByTime = false;
+                sortAddedBtn.classList.add('active');
+                sortTimeBtn.classList.remove('active');
+                renderTodos();
+            });
+            
+            // 完了・削除ボタンのイベント処理（イベント委任）
+            todoList.addEventListener('click', function(e) {
+                if (e.target.classList.contains('toggle-btn')) {
+                    const index = e.target.getAttribute('data-index');
+                    todos[index].completed = !todos[index].completed;
+                    renderTodos();
+                } else if (e.target.classList.contains('delete-btn')) {
+                    const index = e.target.getAttribute('data-index');
+                    todos.splice(index, 1);
+                    renderTodos();
+                }
+            });
+            
+            // 初期表示
+            renderTodos();
+        });
+    </script>
+</body>
+</html> 

@@ -20,6 +20,13 @@ def time():
     """
     return render_template('time.html')
 
+@app.route('/todo2')
+def todo2():
+    """
+    時間指定可能なTODOアプリのページを返す関数
+    """
+    return render_template('todo2.html')
+
 if __name__ == '__main__':
     # デバッグモードでアプリケーションを実行
     app.run(debug=True)
