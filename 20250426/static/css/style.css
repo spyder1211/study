@@ -1,0 +1,157 @@
+/* 
+ * スタイルシート for TODOアプリ
+ */
+
+/* 全体のスタイリング */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* コンテナのスタイリング */
+.container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+}
+
+/* 見出しのスタイリング */
+h1 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+/* TODOアプリ全体のスタイリング */
+.todo-app {
+    text-align: left;
+    margin: 2rem 0;
+}
+
+/* 入力エリアのスタイリング */
+.input-area {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+#new-todo {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 1rem;
+}
+
+#add-button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+#add-button:hover {
+    background-color: #2980b9;
+}
+
+/* TODOリストのスタイリング */
+#todo-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#todo-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    transition: background-color 0.2s;
+}
+
+#todo-list li:hover {
+    background-color: #f1f1f1;
+}
+
+#todo-list span {
+    flex: 1;
+    word-break: break-word;
+}
+
+#todo-list .completed {
+    text-decoration: line-through;
+    color: #888;
+}
+
+/* ボタンのスタイリング */
+.actions button {
+    margin-left: 8px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.toggle-btn {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.toggle-btn:hover {
+    background-color: #27ae60;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* ナビゲーションリンクのスタイリング */
+.nav-links {
+    margin: 1.5rem 0;
+}
+
+.nav-link, .back-link {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.nav-link:hover, .back-link:hover {
+    background-color: #2980b9;
+}
+
+/* 説明テキストのスタイリング */
+.description {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-top: 2rem;
+    font-style: italic;
+} 

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>シンプルTODOアプリ</title>
+    <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>シンプルTODOアプリ</h1>
+        
+        <div class="todo-app">
+            <div class="input-area">
+                <input type="text" id="new-todo" placeholder="新しいタスクを入力...">
+                <button id="add-button">追加</button>
+            </div>
+            
+            <ul id="todo-list"></ul>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/time" class="nav-link">現在時刻を表示</a>
+        </div>
+        
+        <p class="description">このアプリはPython+FlaskとLocalStorageで構築されています</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM要素の取得
+            const newTodoInput = document.getElementById('new-todo');
+            const addButton = document.getElementById('add-button');
+            const todoList = document.getElementById('todo-list');
+            
+            // LocalStorageからTODOリストを読み込む
+            let todos = JSON.parse(localStorage.getItem('todos')) || [];
+            
+            // TODOリストの表示を更新
+            function renderTodos() {
+                // リストをクリア
+                todoList.innerHTML = '';
+                
+                // 各TODOアイテムを表示
+                todos.forEach((todo, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span class="${todo.completed ? 'completed' : ''}">${todo.text}</span>
+                        <div class="actions">
+                            <button class="toggle-btn" data-index="${index}">
+                                ${todo.completed ? '未完了' : '完了'}
+                            </button>
+                            <button class="delete-btn" data-index="${index}">削除</button>
+                        </div>
+                    `;
+                    todoList.appendChild(li);
+                });
+                
+                // LocalStorageに保存
+                localStorage.setItem('todos', JSON.stringify(todos));
+            }
+            
+            // 新しいTODOを追加
+            function addTodo() {
+                const text = newTodoInput.value.trim();
+                if (text) {
+                    todos.push({ text, completed: false });
+                    newTodoInput.value = '';
+                    renderTodos();
+                }
+            }
+            
+            // イベントリスナーの設定
+            addButton.addEventListener('click', addTodo);
+            
+            newTodoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addTodo();
+                }
+            });
+            
+            // 完了・削除ボタンのイベント処理（イベント委任）
+            todoList.addEventListener('click', function(e) {
+                if (e.target.classList.contains('toggle-btn')) {
+                    const index = e.target.getAttribute('data-index');
+                    todos[index].completed = !todos[index].completed;
+                    renderTodos();
+                } else if (e.target.classList.contains('delete-btn')) {
+                    const index = e.target.getAttribute('data-index');
+                    todos.splice(index, 1);
+                    renderTodos();
+                }
+            });
+            
+            // 初期表示
+            renderTodos();
+        });
+    </script>
+</body>
+</html> 

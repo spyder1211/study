@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>時刻表示</title>
+    <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .time-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>現在の時刻</h1>
+        
+        <div id="current-time" class="time-display">
+            <!-- JavaScriptで時刻を表示 -->
+        </div>
+        
+        <div>
+            <a href="/" class="back-link">TODOアプリに戻る</a>
+        </div>
+        
+        <p class="description">このページはJavaScriptで現在時刻を表示しています</p>
+    </div>
+
+    <script>
+        // 時刻を更新する関数
+        function updateTime() {
+            const now = new Date();
+            
+            // 日付と時刻のフォーマット
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            // 表示形式
+            const formattedTime = `${year}年${month}月${day}日 ${hours}:${minutes}:${seconds}`;
+            
+            // 時刻を表示
+            document.getElementById('current-time').textContent = formattedTime;
+        }
+        
+        // 読み込み時に時刻を表示
+        updateTime();
+        
+        // 1秒ごとに時刻を更新
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html> 

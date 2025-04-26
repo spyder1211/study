@@ -1,0 +1,53 @@
+/* 
+ * スタイルシート for 時刻表示アプリ
+ */
+
+/* 全体のスタイリング */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* コンテナのスタイリング */
+.container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+}
+
+/* 見出しのスタイリング */
+h1 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+/* 時刻表示のスタイリング */
+.time-display {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+}
+
+/* 説明テキストのスタイリング */
+.description {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-top: 2rem;
+    font-style: italic;
+} 
