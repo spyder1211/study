@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メモページ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Flaskサンプルアプリケーション</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">TOP</a></li>
+                    <li><a href="/memo" class="active">メモ</a></li>
+                    <li><a href="/profile">プロフィール</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <section class="content">
+                <h2>メモ一覧</h2>
+                
+                <div class="memo-container">
+                    {% for memo in memos %}
+                    <div class="memo-card">
+                        <h3>{{ memo.title }}</h3>
+                        <p>{{ memo.content }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Flaskサンプルアプリケーション</p>
+        </footer>
+    </div>
+</body>
+</html> 

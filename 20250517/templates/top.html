@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOPページ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Flaskサンプルアプリケーション</h1>
+            <nav>
+                <ul>
+                    <li><a href="/" class="active">TOP</a></li>
+                    <li><a href="/memo">メモ</a></li>
+                    <li><a href="/profile">プロフィール</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <section class="content">
+                <h2>ようこそ！</h2>
+                <div class="time-box">
+                    <h3>現在の時刻</h3>
+                    <p class="current-time">{{ current_time }}</p>
+                </div>
+                <p>このサイトはFlaskで作成されたシンプルなWebアプリケーションです。</p>
+                <p>上のナビゲーションから他のページに移動できます。</p>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Flaskサンプルアプリケーション</p>
+        </footer>
+    </div>
+</body>
+</html> 
