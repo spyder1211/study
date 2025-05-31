@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}ホーム - メッセージボックス{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>
+        <i class="fas fa-comments"></i>
+        みんなのメッセージ
+    </h2>
+    <p class="total-count">
+        <i class="fas fa-counter"></i>
+        現在 <strong>{{ total_count }}</strong> 件のメッセージが保存されています
+    </p>
+</div>
+
+<!-- 検索フォーム（GETメソッド） -->
+<div class="search-section">
+    <h3><i class="fas fa-search"></i> メッセージを検索（GET方式）</h3>
+    <form method="GET" action="{{ url_for('search') }}" class="search-form">
+        <div class="form-group">
+            <input type="text" name="q" value="{{ search_query or '' }}" 
+                   placeholder="名前やメッセージで検索..." class="form-input">
+            <button type="submit" class="btn btn-secondary">
+                <i class="fas fa-search"></i> 検索
+            </button>
+        </div>
+    </form>
+    {% if search_query %}
+        <p class="search-info">
+            <i class="fas fa-info-circle"></i>
+            「{{ search_query }}」の検索結果 - URLを見てください！パラメータが表示されています
+            <a href="{{ url_for('index') }}" class="clear-search">
+                <i class="fas fa-times"></i> 検索をクリア
+            </a>
+        </p>
+    {% endif %}
+</div>
+
+<!-- メッセージ投稿フォーム（POSTメソッド） -->
+<div class="post-section">
+    <h3><i class="fas fa-edit"></i> 新しいメッセージを投稿（POST方式）</h3>
+    <form method="POST" action="{{ url_for('post_message') }}" class="post-form">
+        <div class="form-group">
+            <label for="name"><i class="fas fa-user"></i> あなたの名前：</label>
+            <input type="text" id="name" name="name" class="form-input" 
+                   placeholder="例: 田中太郎">
+        </div>
+        <div class="form-group">
+            <label for="message"><i class="fas fa-comment"></i> メッセージ：</label>
+            <textarea id="message" name="message" class="form-textarea" 
+                      placeholder="例: こんにちは、みなさん！"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> メッセージを送信（POST）
+        </button>
+    </form>
+    <div class="method-info">
+        <p><i class="fas fa-lightbulb"></i> <strong>ポイント：</strong> このフォームは<span class="highlight">POSTメソッド</span>でデータを送信します。送信後、URLにデータは表示されません！</p>
+    </div>
+</div>
+
+<!-- メッセージ一覧（GETで取得したデータ） -->
+<div class="messages-section">
+    <h3><i class="fas fa-list"></i> メッセージ一覧（JSONファイルから読み込み）</h3>
+    
+    {% if messages %}
+        <div class="messages-list">
+            {% for message in messages %}
+                <div class="message-card">
+                    <div class="message-header">
+                        <span class="message-name">
+                            <i class="fas fa-user-circle"></i>
+                            {{ message.name }}
+                        </span>
+                        <span class="message-id">#{{ message.id }}</span>
+                    </div>
+                    <div class="message-content">
+                        {{ message.message }}
+                    </div>
+                    <div class="message-footer">
+                        <span class="message-time">
+                            <i class="fas fa-clock"></i>
+                            {{ message.timestamp }}
+                        </span>
+                        <span class="message-method">
+                            <i class="fas fa-tag"></i>
+                            {{ message.method }}メソッド
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-messages">
+            <i class="fas fa-inbox"></i>
+            <p>まだメッセージがありません。</p>
+            <p>上のフォームから最初のメッセージを投稿してみましょう！</p>
+        </div>
+    {% endif %}
+</div>
+
+<!-- 学習ヒント -->
+<div class="learning-hint">
+    <h4><i class="fas fa-graduation-cap"></i> 学習のヒント</h4>
+    <ul>
+        <li><strong>GET</strong>: メッセージを「見る」とき（データの取得）</li>
+        <li><strong>POST</strong>: メッセージを「送る」とき（データの送信・保存）</li>
+        <li>ブラウザの開発者ツール（F12）→ネットワークタブで、実際のHTTPリクエストを確認してみよう！</li>
+        <li>データファイル確認ページで、メッセージがどのように保存されているか見てみよう！</li>
+    </ul>
+</div>
+{% endblock %} 

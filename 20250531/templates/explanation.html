@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block title %}GETとPOSTの違い - メッセージボックス{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>
+        <i class="fas fa-question-circle"></i>
+        GETとPOSTの違いを理解しよう！
+    </h2>
+</div>
+
+<div class="explanation-content">
+    <!-- GETメソッドの説明 -->
+    <div class="method-section get-section">
+        <h3><i class="fas fa-download"></i> GETメソッド - 「取得」</h3>
+        
+        <div class="method-card">
+            <div class="method-header">
+                <span class="method-badge get-badge">GET</span>
+                <h4>データを見る・取得する</h4>
+            </div>
+            
+            <div class="characteristics">
+                <h5><i class="fas fa-list-check"></i> 特徴</h5>
+                <ul>
+                    <li><i class="fas fa-eye"></i> <strong>URLにパラメータが見える</strong><br>
+                        例: <code>?q=検索キーワード</code></li>
+                    <li><i class="fas fa-bookmark"></i> <strong>ブックマークができる</strong><br>
+                        検索結果のページをブックマークして後で見返せる</li>
+                    <li><i class="fas fa-shield-check"></i> <strong>何度実行しても安全</strong><br>
+                        データを変更しないので、何回でも同じ操作ができる</li>
+                    <li><i class="fas fa-history"></i> <strong>ブラウザの履歴に残る</strong><br>
+                        戻るボタンで前のページに戻れる</li>
+                </ul>
+            </div>
+            
+            <div class="examples">
+                <h5><i class="fas fa-lightbulb"></i> 使用例</h5>
+                <ul>
+                    <li>ウェブページを表示する</li>
+                    <li>検索を実行する</li>
+                    <li>メッセージ一覧を見る</li>
+                    <li>ユーザー情報を表示する</li>
+                </ul>
+            </div>
+            
+            <div class="real-world">
+                <h5><i class="fas fa-globe"></i> 日常の例え</h5>
+                <p><strong>図書館で本を読む</strong>のようなもの。本を見るだけで、本自体は変わらない。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- POSTメソッドの説明 -->
+    <div class="method-section post-section">
+        <h3><i class="fas fa-upload"></i> POSTメソッド - 「送信」</h3>
+        
+        <div class="method-card">
+            <div class="method-header">
+                <span class="method-badge post-badge">POST</span>
+                <h4>データを送る・保存する</h4>
+            </div>
+            
+            <div class="characteristics">
+                <h5><i class="fas fa-list-check"></i> 特徴</h5>
+                <ul>
+                    <li><i class="fas fa-eye-slash"></i> <strong>URLにデータが表示されない</strong><br>
+                        パスワードなどの秘密情報も安全に送信できる</li>
+                    <li><i class="fas fa-database"></i> <strong>サーバーのデータを変更する</strong><br>
+                        メッセージを保存したり、ユーザー登録をしたりできる</li>
+                    <li><i class="fas fa-exclamation-triangle"></i> <strong>再実行時に確認される</strong><br>
+                        「もう一度送信しますか？」のダイアログが表示される</li>
+                    <li><i class="fas fa-ban"></i> <strong>ブックマークできない</strong><br>
+                        フォーム送信の結果はブックマークしても意味がない</li>
+                </ul>
+            </div>
+            
+            <div class="examples">
+                <h5><i class="fas fa-lightbulb"></i> 使用例</h5>
+                <ul>
+                    <li>メッセージを投稿する</li>
+                    <li>ユーザー登録をする</li>
+                    <li>ログインする</li>
+                    <li>ファイルをアップロードする</li>
+                </ul>
+            </div>
+            
+            <div class="real-world">
+                <h5><i class="fas fa-globe"></i> 日常の例え</h5>
+                <p><strong>郵便ポストに手紙を投函する</strong>のようなもの。一度投函すると、手紙はポストの中に保存される。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 比較表 -->
+    <div class="comparison-section">
+        <h3><i class="fas fa-balance-scale"></i> GETとPOSTの比較</h3>
+        
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th class="get-column"><i class="fas fa-download"></i> GET</th>
+                        <th class="post-column"><i class="fas fa-upload"></i> POST</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>目的</strong></td>
+                        <td>データを取得・表示</td>
+                        <td>データを送信・保存</td>
+                    </tr>
+                    <tr>
+                        <td><strong>URLにデータ</strong></td>
+                        <td class="get-cell">表示される</td>
+                        <td class="post-cell">表示されない</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ブックマーク</strong></td>
+                        <td class="get-cell">できる</td>
+                        <td class="post-cell">できない</td>
+                    </tr>
+                    <tr>
+                        <td><strong>安全性</strong></td>
+                        <td class="get-cell">何度でも実行OK</td>
+                        <td class="post-cell">確認ダイアログ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>データサイズ</strong></td>
+                        <td class="get-cell">制限あり</td>
+                        <td class="post-cell">大きなデータOK</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 実践してみよう -->
+    <div class="practice-section">
+        <h3><i class="fas fa-hands-helping"></i> 実践してみよう！</h3>
+        
+        <div class="practice-cards">
+            <div class="practice-card">
+                <h4><i class="fas fa-search"></i> 検索で実験</h4>
+                <p>ホームページで検索してみて、URLがどう変わるか確認してみよう！</p>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">ホームで試す</a>
+            </div>
+            
+            <div class="practice-card">
+                <h4><i class="fas fa-edit"></i> メッセージ投稿で実験</h4>
+                <p>メッセージを投稿して、URLに何も表示されないことを確認してみよう！</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary">メッセージを投稿</a>
+            </div>
+            
+            <div class="practice-card">
+                <h4><i class="fas fa-database"></i> データの確認</h4>
+                <p>実際にJSONファイルがどう変化するか見てみよう！</p>
+                <a href="{{ url_for('data_view') }}" class="btn btn-info">データを確認</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 開発者ツールでの確認方法 -->
+    <div class="devtools-section">
+        <h3><i class="fas fa-wrench"></i> 開発者ツールで確認してみよう</h3>
+        
+        <div class="devtools-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>開発者ツールを開く</h4>
+                    <p>F12キー または 右クリック → 「検証」</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>ネットワークタブをクリック</h4>
+                    <p>HTTPリクエストを確認できます</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>実際に操作してみる</h4>
+                    <p>検索やメッセージ投稿をして、GETとPOSTの違いを確認</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

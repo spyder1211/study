@@ -1,0 +1,26 @@
+{
+  "messages": [
+    {
+      "id": 1,
+      "name": "やのそういちろう",
+      "message": "こんにちは。みなさん。",
+      "timestamp": "2025-05-31 19:01:33",
+      "method": "POST"
+    },
+    {
+      "id": 2,
+      "name": "ななし",
+      "message": "勉強",
+      "timestamp": "2025-05-31 19:04:00",
+      "method": "POST"
+    },
+    {
+      "id": 3,
+      "name": "やのそういちろう",
+      "message": "１２３",
+      "timestamp": "2025-05-31 19:06:23",
+      "method": "POST"
+    }
+  ],
+  "total_count": 3
+}
